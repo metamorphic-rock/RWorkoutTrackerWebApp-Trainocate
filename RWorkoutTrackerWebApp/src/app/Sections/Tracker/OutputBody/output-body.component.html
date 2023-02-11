@@ -1,1 +1,26 @@
-<p>output-body works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h5 class="exerciseName">{{set.exerciseName}}</h5>
+        </div>
+        <div class="col-3" >
+            <h5 class="muscleGroup">{{set.exerciseName}}</h5>
+        </div>
+        <div class="col-3">
+            <h5>{{set.weight}}</h5>
+        </div>
+        <div class="col-2">
+            <h5>{{set.reps}}</h5>
+        </div>
+        <div class="col-1" id="button">
+            <a routerLink="/set-item/{{set.id}}" class="btn btn-warning" (click)="EditSet()">
+                Edit
+             </a>
+            <button class="btn btn-danger" (click)="DeleteSet()">
+                Del
+            </button>
+        </div>
+
+    </div>
+</div>
+  

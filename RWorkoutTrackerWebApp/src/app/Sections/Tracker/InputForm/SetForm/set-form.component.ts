@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input,EventEmitter, Output } from '@angular/core';
 import { SetItem } from 'src/app/Models/SetItemModel';
 
 @Component({
@@ -8,13 +8,16 @@ import { SetItem } from 'src/app/Models/SetItemModel';
 })
 export class SetFormComponent {
   @Input() set:SetItem={
+    'exerciseName':'',
     'exerciseId':0,
     'workoutId':0,
     'id':0,
     'weight':0,
     'reps':0,
   }
-  SaveSet=()=>{
-
+  @Output() AddSetEvent: EventEmitter<SetItem>=new EventEmitter<SetItem>();
+  AddSet=()=>{
+    let payload={...this.set}
+    this.AddSetEvent.emit(payload)
   }
 }

@@ -14,8 +14,10 @@ import { OutputBodyComponent } from './Sections/Tracker/OutputBody/output-body.c
 
 
 const appRoutes: Routes=[
+  {path:'tracker',component:TrackerComponent},
   {path:'exerciseForm', component: ExerciseFormComponent},
-  {path:'setForm', component:SetFormComponent}
+  {path:'setForm', component:SetFormComponent},
+  { path: '**', redirectTo: '/tracker'}
 ]
 @NgModule({
   declarations: [

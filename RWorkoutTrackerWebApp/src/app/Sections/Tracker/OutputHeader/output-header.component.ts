@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-output-header',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./output-header.component.scss']
 })
 export class OutputHeaderComponent {
-
+  @Input() numberOfSets: number=0;
 }
