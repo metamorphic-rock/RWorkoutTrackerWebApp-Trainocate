@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="mt-2 mb-3"></div>
+    <div class="card-body">
+        <label>Workout Title:</label>
+        <input type="text" class="form-control" [(ngModel)]="workout.workoutTitle" />
+        <label> Date: </label>
+        <input type="date" class="form-control" [(ngModel)]="workout.date"/>
+    </div>
+    <div class="mt-2 mb-3"></div>
+    <button type="button" class="btn btn-primary" routerLink="/exerciseForm">
+        Start Workout
+    </button>
+    <app-exercise-form>
+    </app-exercise-form>
+
+    <app-set-form>
+    </app-set-form>
+
+    <app-output-header>
+    </app-output-header>
+
+    <app-output-body>
+        
+    </app-output-body>
+</div>
