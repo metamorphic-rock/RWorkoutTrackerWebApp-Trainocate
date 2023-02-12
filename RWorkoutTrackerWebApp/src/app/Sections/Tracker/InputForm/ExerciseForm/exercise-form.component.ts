@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ExerciseItem } from 'src/app/Models/ExerciseItemModel';
 import { MuscleGroupItems } from 'src/app/Models/MuscleGroup';
 import { SetItem } from 'src/app/Models/SetItemModel';
+import { WorkoutItem } from 'src/app/Models/WorkoutItemModel';
+import { ExerciseItemServicesService } from 'src/app/Services/exercise-item-services.service';
+import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-services.service';
 
 @Component({
   selector: 'app-exercise-form',
@@ -9,6 +12,8 @@ import { SetItem } from 'src/app/Models/SetItemModel';
   styleUrls: ['./exercise-form.component.scss']
 })
 export class ExerciseFormComponent {
+  constructor(private exerciseItemService:ExerciseItemServicesService,
+              private workoutItemService:WorkoutItemsServicesService){}
   @Input() exercise: ExerciseItem = {
     'id': 0,
     'workoutId':0,
@@ -18,15 +23,20 @@ export class ExerciseFormComponent {
   }
   @Input() set: SetItem | undefined; //fix this later
   setItems: SetItem[] = []
-
-  ngOnInit() {
-
+  workout!: WorkoutItem
+  ngOnInit():void {
+    this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w)=>{
+      this.workout=w
+    })
   }
   enableAddSet: boolean = false
   SaveExercise = () => {
     this.enableAddSet = true;
     let payload ={...this.exercise}
+    payload.workoutId=Number(this.workout.id)
+    this.exerciseItemService.SaveExerciseToDB(payload).subscribe()
     console.log(payload)
+    this.ngOnInit()
   }
   FinishExercise=()=>{
     if(this.exercise.exerciseName==""||this.exercise.muscleGroup==""){

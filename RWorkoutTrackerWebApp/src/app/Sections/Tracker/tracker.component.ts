@@ -1,6 +1,7 @@
 import { Component,Input, Output,OnInit, EventEmitter } from '@angular/core';
 import { SetItem } from 'src/app/Models/SetItemModel';
 import { WorkoutItem } from 'src/app/Models/WorkoutItemModel';
+import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-services.service';
 
 @Component({
   selector: 'app-tracker',
@@ -8,7 +9,7 @@ import { WorkoutItem } from 'src/app/Models/WorkoutItemModel';
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit{
-  constructor(){}
+  constructor(private workoutItemService:WorkoutItemsServicesService){}
   @Input() workout: WorkoutItem={
     'id':0,
     'workoutTitle':"",
@@ -22,7 +23,9 @@ export class TrackerComponent implements OnInit{
   }
   SaveWorkout=()=>{
     let payload={...this.workout}
+    this.workoutItemService.SaveWorkoutToDB(payload).subscribe()
     console.log(payload)
+    this.ngOnInit()
   }
   // AddSetEventHandler =(payload:SetItem)=>{
   //   let set={...payload}
