@@ -19,5 +19,6 @@ export class SetFormComponent {
   AddSet=()=>{
     let payload={...this.set}
     this.AddSetEvent.emit(payload)
+    console.log(payload)
   }
 }

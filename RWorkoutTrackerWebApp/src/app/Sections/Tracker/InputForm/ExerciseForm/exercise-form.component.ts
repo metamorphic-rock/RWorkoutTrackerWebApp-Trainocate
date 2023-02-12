@@ -11,6 +11,7 @@ import { SetItem } from 'src/app/Models/SetItemModel';
 export class ExerciseFormComponent {
   @Input() exercise: ExerciseItem = {
     'id': 0,
+    'workoutId':0,
     'exerciseName': '',
     'muscleGroup': '',
     'performedSets': []
