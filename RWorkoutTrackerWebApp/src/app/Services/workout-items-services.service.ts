@@ -38,7 +38,7 @@ export class WorkoutItemsServicesService {
       let payload = {
         workoutTitle: workoutItem.workoutTitle, date: workoutItem.date
       } //fix this later
-      console.log("save workout payload")
+      console.log("SaveWorkoutToDB workout payload")
       console.log(payload)
       workout = this.http.post<WorkoutItem>(`${this.baseUrl}/workout_items`, payload, httpOptions)
     }

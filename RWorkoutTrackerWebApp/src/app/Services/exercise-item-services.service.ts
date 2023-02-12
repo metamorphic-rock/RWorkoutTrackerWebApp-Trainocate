@@ -39,7 +39,7 @@ export class ExerciseItemServicesService {
         exerciseName: exerciseItem.exerciseName, muscleGroup: exerciseItem.muscleGroup,
         workoutId: exerciseItem.workoutId
       } //fix this later
-      console.log("save exercise payload")
+      console.log("SaveExerciseToDB exercise payload")
       console.log(payload)
       exercise = this.http.post<ExerciseItem>(`${this.baseUrl}/exercise_items`, payload, httpOptions)
     }
