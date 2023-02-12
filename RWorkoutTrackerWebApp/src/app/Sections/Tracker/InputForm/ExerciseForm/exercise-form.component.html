@@ -3,25 +3,38 @@
     <div class="card">
         <div class="card-body">
             <label>Exercise Name:</label>
-            <input type="text" class="form-control" [(ngModel)]="exercise.exerciseName"/>
+            <input type="text" class="form-control" [(ngModel)]="exercise.exerciseName" />
             <label> Muscle Group: </label>
             <select class="form-control" id="" [(ngModel)]="exercise.muscleGroup">
                 <option value="" selected disabled>Select a Muscle Group</option>
                 <option [value]="" *ngFor="let muscles of muscleGroup">{{muscles.name}}</option>
             </select>
         </div>
-         
+
     </div>
     <div class="mt-2 mb-3"></div>
-        <button type="button" class="btn btn-success" (click)="SaveExercise()">
-            Add Exercise
-        </button>
+    <button type="button" class="btn btn-success" (click)="SaveExercise()">
+        Add Exercise
+    </button>
+    <div class="mt-2 mb-3"></div>
+    <button type="button" class="btn btn-danger" (click)="FinishExercise()">
+        Finish Exercise
+    </button>
+    <div class="container" *ngIf="enableAddSet">
+        <app-set-form (AddSetEvent)="AddSetEventHandler($event)">
+        </app-set-form>
         <div class="mt-2 mb-3"></div>
-        <button type="button" class="btn btn-danger" (click)="SaveExercise()">
-            Finish Exercise
-        </button>
-    <app-set-form *ngIf="enableAddSet">
+        <div class="card">
+            <div class="card-header">
+                <app-output-header>
+                </app-output-header>
+            </div>
+            <div class="card-body">
+                <app-output-body>
 
-    </app-set-form>
+                </app-output-body>
+            </div>
+        </div>
+    </div>
 
 </div>

@@ -7,12 +7,15 @@
         <input type="date" class="form-control" [(ngModel)]="workout.date"/>
     </div>
     <div class="mt-2 mb-3"></div>
-    <button type="button" class="btn btn-primary" routerLink="/exerciseForm">
+    <button type="button" class="btn btn-primary" routerLink="/exerciseForm" (click)="SaveWorkout()">
         Start Workout
     </button>
-    <app-exercise-form>
-    </app-exercise-form>
+        <router-outlet>
 
+        </router-outlet>
+    <!-- <app-exercise-form>
+    </app-exercise-form> -->
+<!-- 
     <app-set-form (AddSetEvent)="AddSetEventHandler($event)">
     </app-set-form>
     <div class="mt-2 mb-3"></div>
@@ -26,7 +29,7 @@
             
             </app-output-body>
         </div>
-    </div>
+    </div> -->
     
     
 </div>

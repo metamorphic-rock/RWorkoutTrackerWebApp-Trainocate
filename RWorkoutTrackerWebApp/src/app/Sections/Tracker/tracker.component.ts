@@ -20,9 +20,13 @@ export class TrackerComponent implements OnInit{
   ngOnInit(){
     
   }
-  AddSetEventHandler =(payload:SetItem)=>{
-    let set={...payload}
-    this.setItems.push(set)
-    this.ngOnInit()
+  SaveWorkout=()=>{
+    let payload={...this.workout}
+    console.log(payload)
   }
+  // AddSetEventHandler =(payload:SetItem)=>{
+  //   let set={...payload}
+  //   this.setItems.push(set)
+  //   this.ngOnInit()
+  // }
 }
