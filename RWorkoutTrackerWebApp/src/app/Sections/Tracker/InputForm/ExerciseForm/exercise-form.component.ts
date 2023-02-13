@@ -37,12 +37,13 @@ export class ExerciseFormComponent implements OnInit{
   }
   enableAddSet: boolean = false
   SaveExercise = () => {
-    this.ngOnInit()
+    // this.ngOnInit()
     this.enableAddSet = true;
     let payload ={...this.exercise}
     payload.workoutId=Number(this.workout.id)
     this.exerciseItemService.SaveExerciseToDB(payload).subscribe()
     console.log(payload)
+    console.log("workoutId"+payload.workoutId)
     
   }
   FinishExercise=()=>{

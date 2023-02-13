@@ -39,10 +39,10 @@ export class SetFormComponent implements OnInit{
     })
   }
   AddSet=()=>{
-    this.ngOnInit()
+    //this.ngOnInit()
     let payload={...this.set}
-    console.log(this.workout.id)
-    console.log(this.exercise.id)
+    console.log("workout Id" +this.workout.id)
+    console.log("exercise ID"+this.exercise.id)
     payload.exerciseId=this.exercise.id
     payload.exerciseName=this.exercise.exerciseName
     payload.workoutId=this.workout.id
