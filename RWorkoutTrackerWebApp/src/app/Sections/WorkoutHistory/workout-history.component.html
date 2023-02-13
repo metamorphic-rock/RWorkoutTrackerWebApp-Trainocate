@@ -1,10 +1,13 @@
-<p>workout-history works!</p>
 <div class="container">
-    <div class="card">
+    <h2>Workout History</h2>
+    <div class="card" *ngIf="!workouts">
         <div class="card-header">
             <div class="card-body">
-                
-            </div>
+                <app-previous-workouts *ngFor="let workout of workouts" [workout]="workout">
+
+                </app-previous-workouts>
+            </div> 
         </div>
     </div>
+    <h4 *ngIf="workouts">You have not log any workout!</h4>
 </div>

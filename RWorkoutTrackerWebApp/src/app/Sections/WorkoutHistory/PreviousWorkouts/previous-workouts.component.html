@@ -1,1 +1,33 @@
-<p>previous-workouts works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h3>Workout Title:</h3>
+            <h5>{{workout.workoutTitle}}</h5>
+            <h3>Date:</h3>
+            <h5>{{workout.date}}</h5>
+            <button class="btn btn-warning" (click)="EditWorkout()">
+                {{this.editEnable? 'Discard Changes':'Edit Workout'}} 
+            </button>
+            <button class="btn btn-danger" (click)="DeleteWorkout()">
+                Delete Workout
+            </button>
+        </div>
+        <div class="col-6">
+            <div *ngIf="editEnable">
+                <div class="form-group">
+                    <h4>Workout Title:</h4>
+                    <input type="text" class="form-control"/>
+                    <h4>Date:</h4>
+                    <input input="date" class="form-control">
+                </div>
+                <button class="btn btn-success" (click)="SaveChanges()">
+                    Save Changes
+                </button>
+                <span></span>
+            </div>
+            <br>
+    
+        </div>
+    </div>
+    <hr>
+</div>
