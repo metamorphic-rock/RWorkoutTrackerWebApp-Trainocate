@@ -9,6 +9,7 @@ import { SetItemServicesService } from 'src/app/Services/set-item-services.servi
 })
 export class OutputBodyComponent implements OnInit{
   constructor(private setItemService:SetItemServicesService){}
+  enableSetEdit:boolean=false;
   @Input() set: SetItem={
     'id':0,
     'exerciseName':'',
@@ -17,11 +18,11 @@ export class OutputBodyComponent implements OnInit{
     'weight':0,
     'reps':0
   }
-  ngOnInit(): void {
-    
+  ngOnInit(): void {  
   }
   @Output() editSetEvent : EventEmitter<any>=new EventEmitter<any>();
   EditSet=()=>{
+    this.enableSetEdit=!this.enableSetEdit
     console.log("Edit set");
   };
   @Output() deleteSetEvent: EventEmitter<any>=new EventEmitter<any>();
@@ -35,4 +36,9 @@ export class OutputBodyComponent implements OnInit{
       this.deleteSetEvent.emit(this.set)
     })
   };
+  SaveChanges=()=>{
+    this.setItemService.SaveSetToDB(this.set).subscribe()
+    console.log("edit set,id : ")
+    console.log(this.set.id)
+  }
 }

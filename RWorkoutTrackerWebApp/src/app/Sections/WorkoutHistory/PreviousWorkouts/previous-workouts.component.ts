@@ -15,6 +15,9 @@ export class PreviousWorkoutsComponent {
     'date': new Date,
     'exercisesPerformed':[]
   }
+  ngOnInit():void{
+
+  }
   editEnable:boolean=false
   EditWorkout=()=>{
     this.editEnable=!this.editEnable
@@ -22,10 +25,16 @@ export class PreviousWorkoutsComponent {
   @Output() deleteWorkoutEvent: EventEmitter<any>=new EventEmitter<any>()
   DeleteWorkout=()=>{
     let workoutId=Number(this.workout.id)
-    this.workoutItemService.DeleteWorkoutFromDB(workoutId).subscribe()
+    this.workoutItemService.DeleteWorkoutFromDB(workoutId).subscribe(()=>
+      this.deleteWorkoutEvent.emit(this.workout))
     console.log(workoutId)
+    this.ngOnInit()
   }
   SaveChanges=()=>{
     this.workoutItemService.SaveWorkoutToDB(this.workout).subscribe()
+    console.log(this.workout.id)
+    console.log("save changes")
+    this.editEnable=!this.editEnable
+    console.log(this.workout)
   }
 }
