@@ -69,7 +69,7 @@ export class SetFormComponent{
       this.AddSetEvent.emit(payload)
     })
     console.log(payload)
-    this.router.navigateByUrl(this.router.url)
+    // this.router.navigateByUrl(this.router.url)
     window.location.reload()
     this.ngOnInit()
   }

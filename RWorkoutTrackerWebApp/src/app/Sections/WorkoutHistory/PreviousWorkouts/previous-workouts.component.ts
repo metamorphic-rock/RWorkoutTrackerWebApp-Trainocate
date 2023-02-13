@@ -1,4 +1,5 @@
 import { Component,EventEmitter,Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { WorkoutItem } from 'src/app/Models/WorkoutItemModel';
 import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-services.service';
 
@@ -8,7 +9,7 @@ import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-serv
   styleUrls: ['./previous-workouts.component.scss']
 })
 export class PreviousWorkoutsComponent {
-  constructor(private workoutItemService:WorkoutItemsServicesService){}
+  constructor(private router:Router ,private workoutItemService:WorkoutItemsServicesService){}
   @Input() workout:WorkoutItem={
     'id':0,
     'workoutTitle':'',
@@ -29,7 +30,8 @@ export class PreviousWorkoutsComponent {
       this.deleteWorkoutEvent.emit(this.workout))
     console.log(workoutId)
     this.ngOnInit()
-    // window.location.reload()
+    this.router.navigate(['/workoutHistory'])
+    window.location.reload()
   }
   SaveChanges=()=>{
     this.workoutItemService.SaveWorkoutToDB(this.workout).subscribe()
