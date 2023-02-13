@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,EventEmitter,Input, Output } from '@angular/core';
 import { WorkoutItem } from 'src/app/Models/WorkoutItemModel';
 import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-services.service';
 
@@ -19,6 +19,7 @@ export class PreviousWorkoutsComponent {
   EditWorkout=()=>{
     this.editEnable=!this.editEnable
   }
+  @Output() deleteWorkoutEvent: EventEmitter<any>=new EventEmitter<any>()
   DeleteWorkout=()=>{
     let workoutId=Number(this.workout.id)
     this.workoutItemService.DeleteWorkoutFromDB(workoutId).subscribe()

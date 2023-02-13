@@ -1,13 +1,17 @@
 <div class="container">
     <h2>Workout History</h2>
-    <div class="card" *ngIf="!workouts">
+    <div class="card" *ngIf="workouts.length">
         <div class="card-header">
             <div class="card-body">
-                <app-previous-workouts *ngFor="let workout of workouts" [workout]="workout">
+                <app-previous-workouts *ngFor="let workout of workouts" [workout]="workout" (deleteWorkoutEvent)="DeleteWorkoutEventHandler()">
 
                 </app-previous-workouts>
-            </div> 
+            </div>
         </div>
     </div>
-    <h4 *ngIf="workouts">You have not log any workout!</h4>
+    <div class="container">
+        <br>
+        <h4 *ngIf="workouts.length==0">You have not log any workout!</h4>
+    </div>
+
 </div>
