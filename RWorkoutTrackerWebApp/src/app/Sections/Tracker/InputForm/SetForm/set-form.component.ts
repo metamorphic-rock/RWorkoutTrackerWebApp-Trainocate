@@ -5,6 +5,7 @@ import { WorkoutItem } from 'src/app/Models/WorkoutItemModel';
 import { SetItemServicesService } from 'src/app/Services/set-item-services.service';
 import { ExerciseItemServicesService } from 'src/app/Services/exercise-item-services.service';
 import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-services.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-set-form',
@@ -14,7 +15,8 @@ import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-serv
 export class SetFormComponent{
   constructor(private setItemService:SetItemServicesService,
               private exerciseItemService:ExerciseItemServicesService,
-              private workoutItemService:WorkoutItemsServicesService){}
+              private workoutItemService:WorkoutItemsServicesService,
+              private router:Router){}
   @Input() set:SetItem={
     'exerciseName':'',
     'exerciseId':0,
@@ -24,10 +26,10 @@ export class SetFormComponent{
     'reps':0,
   }
   @Output() AddSetEvent: EventEmitter<SetItem>=new EventEmitter<SetItem>()
-  shouldReload:boolean= true;
   workout!: WorkoutItem;
   exercise!: ExerciseItem;
   sets: SetItem[]=[]
+  private reloaded = false;
 
   ngOnInit():void {
     this.setItemService.GetAllSetFromDB().subscribe((s)=>{
@@ -36,7 +38,7 @@ export class SetFormComponent{
     this.exerciseItemService.GetLastAddedExerciseFromDB().subscribe((e)=>{
       this.exercise=e
       this.exercise.id=e.id
-      console.log("ngOninit works")
+      console.log("ngOninit works exercise Item")
       console.log(this.exercise.id)
     })
     this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w)=>{
@@ -45,14 +47,18 @@ export class SetFormComponent{
       console.log("ngOninit works Workout id")
       console.log(this.workout.id)
     })
-    // if(this.shouldReload){
-    //   setTimeout(() => {
-    //     location.reload();
-    //     this.shouldReload = false;
-    //   }, 1000);
-    // }
+    if (!this.reloaded) {
+      this.reloaded = true;
+      this.router.navigate(['/setForm'])
+    }
+    
   }
   AddSet=()=>{
+    if(this.set.weight==0||this.set.reps==0){
+      alert("Weight and reps are required!")
+      this.router.navigate(['/setForm'])
+      return
+    }
     let payload={...this.set}
     console.log("workout Id" +this.workout.id)
     console.log("exercise ID"+this.exercise.id)
@@ -63,6 +69,8 @@ export class SetFormComponent{
       this.AddSetEvent.emit(payload)
     })
     console.log(payload)
+    this.router.navigateByUrl(this.router.url)
+    window.location.reload()
     this.ngOnInit()
   }
   DeletSetEventHandler=(set:SetItem)=>{

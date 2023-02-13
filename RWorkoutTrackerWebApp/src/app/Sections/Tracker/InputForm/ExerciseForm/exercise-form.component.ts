@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ExerciseItem } from 'src/app/Models/ExerciseItemModel';
 import { MuscleGroupItems } from 'src/app/Models/MuscleGroup';
 import { SetItem } from 'src/app/Models/SetItemModel';
@@ -15,7 +16,8 @@ import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-serv
 export class ExerciseFormComponent {
   constructor(private exerciseItemService: ExerciseItemServicesService,
     private workoutItemService: WorkoutItemsServicesService,
-    private setItemServices: SetItemServicesService) { }
+    private setItemServices: SetItemServicesService,
+    private router: Router) { }
   @Input() exercise: ExerciseItem = {
     'id': 0,
     'workoutId': 0,
@@ -26,7 +28,7 @@ export class ExerciseFormComponent {
   @Input() set: SetItem | undefined; //fix this later
   setItems: SetItem[] = []
   workout!: WorkoutItem
-  //currentWorkoutId:number=Number(this.workout.id)
+  reloaded:boolean=false
   ngOnInit(): void {
 
     this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w) => {
@@ -39,22 +41,19 @@ export class ExerciseFormComponent {
       this.setItems = sets
 
     })
-    // let shouldReload: boolean = true;
-    // if(shouldReload){
-    //   location.reload()
-    //   shouldReload=false
-    // }
-    // if(this.shouldReload){
-    //   setTimeout(() => {
-    //     location.reload();
-    //     this.shouldReload = false;
-    //   }, 4000);
-    // }
+    if (!this.reloaded) {
+      this.reloaded = true;
+      this.router.navigate(['/exerciseForm']);
+    }
 
   }
-  enableAddSet: boolean = false
+  inputAreValid: boolean = false
   SaveExercise = () => {
-    this.enableAddSet = true;
+    if(this.exercise.exerciseName==''||this.exercise.muscleGroup==''){
+      alert("Exercise name and muscle group is needed!")
+      this.router.navigate(['/exerciseForm'])
+      return
+    }
     let payload = { ...this.exercise }
     payload.workoutId = Number(this.workout.id)
     this.exerciseItemService.SaveExerciseToDB(payload).subscribe()

@@ -29,6 +29,7 @@ export class PreviousWorkoutsComponent {
       this.deleteWorkoutEvent.emit(this.workout))
     console.log(workoutId)
     this.ngOnInit()
+    // window.location.reload()
   }
   SaveChanges=()=>{
     this.workoutItemService.SaveWorkoutToDB(this.workout).subscribe()
@@ -36,5 +37,6 @@ export class PreviousWorkoutsComponent {
     console.log("save changes")
     this.editEnable=!this.editEnable
     console.log(this.workout)
+
   }
 }
