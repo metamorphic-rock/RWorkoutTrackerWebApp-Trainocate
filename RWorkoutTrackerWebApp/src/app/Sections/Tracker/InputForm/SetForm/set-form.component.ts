@@ -24,6 +24,7 @@ export class SetFormComponent implements OnInit{
     'reps':0,
   }
   @Output() AddSetEvent: EventEmitter<SetItem>=new EventEmitter<SetItem>()
+  shouldReload:boolean= true;
   workout!: WorkoutItem
   exercise!: ExerciseItem
   sets: SetItem[]=[]
@@ -37,9 +38,15 @@ export class SetFormComponent implements OnInit{
     this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w)=>{
       this.workout=w
     })
+    // if(this.shouldReload){
+    //   setTimeout(() => {
+    //     location.reload();
+    //     this.shouldReload = false;
+    //   }, 1000);
+    // }
   }
   AddSet=()=>{
-    //this.ngOnInit()
+    this.ngOnInit()
     let payload={...this.set}
     console.log("workout Id" +this.workout.id)
     console.log("exercise ID"+this.exercise.id)
@@ -50,6 +57,12 @@ export class SetFormComponent implements OnInit{
       this.AddSetEvent.emit(payload)
     })
     console.log(payload)
-    
+  }
+  DeletSetEventHandler=(set:SetItem)=>{
+    let setIndex = this.sets.findIndex(s => s.id === set.id);
+    this.sets.splice(setIndex, 1);
+  }
+  FinishWorkout=()=>{
+    alert("Do you want to end this workout?")
   }
 }

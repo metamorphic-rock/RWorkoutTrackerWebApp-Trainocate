@@ -12,13 +12,13 @@ import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-serv
   templateUrl: './exercise-form.component.html',
   styleUrls: ['./exercise-form.component.scss']
 })
-export class ExerciseFormComponent implements OnInit{
-  constructor(private exerciseItemService:ExerciseItemServicesService,
-              private workoutItemService:WorkoutItemsServicesService,
-              private setItemServices:SetItemServicesService){}
+export class ExerciseFormComponent implements OnInit {
+  constructor(private exerciseItemService: ExerciseItemServicesService,
+    private workoutItemService: WorkoutItemsServicesService,
+    private setItemServices: SetItemServicesService) { }
   @Input() exercise: ExerciseItem = {
     'id': 0,
-    'workoutId':0,
+    'workoutId': 0,
     'exerciseName': '',
     'muscleGroup': '',
     'performedSets': []
@@ -27,39 +27,52 @@ export class ExerciseFormComponent implements OnInit{
   setItems: SetItem[] = []
   workout!: WorkoutItem
   //currentWorkoutId:number=Number(this.workout.id)
-  ngOnInit():void {
-    this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w)=>{
-      this.workout=w
-    })
-    this.setItemServices.GetAllSetFromDB().subscribe((sets)=>{
-      this.setItems=sets
-    })
+  ngOnInit(): void {
+    
+      this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w) => {
+        this.workout = w
+      })
+      this.setItemServices.GetAllSetFromDB().subscribe((sets) => {
+        this.setItems = sets
+      })
+      // let shouldReload: boolean = true;
+      // if(shouldReload){
+      //   location.reload()
+      //   shouldReload=false
+      // }
+    // if(this.shouldReload){
+    //   setTimeout(() => {
+    //     location.reload();
+    //     this.shouldReload = false;
+    //   }, 4000);
+    // }
+    
   }
   enableAddSet: boolean = false
   SaveExercise = () => {
     // this.ngOnInit()
     this.enableAddSet = true;
-    let payload ={...this.exercise}
-    payload.workoutId=Number(this.workout.id)
+    let payload = { ...this.exercise }
+    payload.workoutId = Number(this.workout.id)
     this.exerciseItemService.SaveExerciseToDB(payload).subscribe()
     console.log(payload)
-    console.log("workoutId"+payload.workoutId)
-    
+    console.log("workoutId" + payload.workoutId)
+
   }
-  FinishExercise=()=>{
-    if(this.exercise.exerciseName==""||this.exercise.muscleGroup==""){
+  FinishExercise = () => {
+    if (this.exercise.exerciseName == "" || this.exercise.muscleGroup == "") {
       return;
     };
-    this.exercise.exerciseName=""
-    this.exercise.muscleGroup=""
+    this.exercise.exerciseName = ""
+    this.exercise.muscleGroup = ""
   }
   AddSetEventHandler = (payload: SetItem) => {
     let set = { ...payload }
     this.setItems.push(set)
     this.ngOnInit()
   }
-  DeleteSetEvenetHandler=()=>{
-    
+  DeleteSetEvenetHandler = () => {
+
   }
   muscleGroup: MuscleGroupItems[] = [
     {

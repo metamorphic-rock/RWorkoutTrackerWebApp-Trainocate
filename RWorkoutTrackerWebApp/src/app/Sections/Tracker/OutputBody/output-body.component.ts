@@ -31,6 +31,8 @@ export class OutputBodyComponent implements OnInit{
     console.log(this.set);
     let id=this.set.id
     console.log(id)
-    this.setItemService.DeleteSetFromDB(id).subscribe()
+    this.setItemService.DeleteSetFromDB(id).subscribe(()=>{
+      this.deleteSetEvent.emit(this.set)
+    })
   };
 }
