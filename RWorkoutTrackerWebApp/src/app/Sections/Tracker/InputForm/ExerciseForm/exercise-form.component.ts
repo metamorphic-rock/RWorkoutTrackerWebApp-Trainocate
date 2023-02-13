@@ -12,7 +12,7 @@ import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-serv
   templateUrl: './exercise-form.component.html',
   styleUrls: ['./exercise-form.component.scss']
 })
-export class ExerciseFormComponent implements OnInit {
+export class ExerciseFormComponent {
   constructor(private exerciseItemService: ExerciseItemServicesService,
     private workoutItemService: WorkoutItemsServicesService,
     private setItemServices: SetItemServicesService) { }
@@ -28,35 +28,39 @@ export class ExerciseFormComponent implements OnInit {
   workout!: WorkoutItem
   //currentWorkoutId:number=Number(this.workout.id)
   ngOnInit(): void {
-    
-      this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w) => {
-        this.workout = w
-      })
-      this.setItemServices.GetAllSetFromDB().subscribe((sets) => {
-        this.setItems = sets
-      })
-      // let shouldReload: boolean = true;
-      // if(shouldReload){
-      //   location.reload()
-      //   shouldReload=false
-      // }
+
+    this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w) => {
+      this.workout = w
+      this.workout.id=w.id
+      console.log("ngOninit works Workout id")
+      console.log(this.workout.id)
+    })
+    this.setItemServices.GetAllSetFromDB().subscribe((sets) => {
+      this.setItems = sets
+
+    })
+    // let shouldReload: boolean = true;
+    // if(shouldReload){
+    //   location.reload()
+    //   shouldReload=false
+    // }
     // if(this.shouldReload){
     //   setTimeout(() => {
     //     location.reload();
     //     this.shouldReload = false;
     //   }, 4000);
     // }
-    
+
   }
   enableAddSet: boolean = false
   SaveExercise = () => {
-    // this.ngOnInit()
     this.enableAddSet = true;
     let payload = { ...this.exercise }
     payload.workoutId = Number(this.workout.id)
     this.exerciseItemService.SaveExerciseToDB(payload).subscribe()
     console.log(payload)
     console.log("workoutId" + payload.workoutId)
+    this.ngOnInit()
 
   }
   FinishExercise = () => {

@@ -11,7 +11,7 @@ import { WorkoutItemsServicesService } from 'src/app/Services/workout-items-serv
   templateUrl: './set-form.component.html',
   styleUrls: ['./set-form.component.scss']
 })
-export class SetFormComponent implements OnInit{
+export class SetFormComponent{
   constructor(private setItemService:SetItemServicesService,
               private exerciseItemService:ExerciseItemServicesService,
               private workoutItemService:WorkoutItemsServicesService){}
@@ -25,18 +25,25 @@ export class SetFormComponent implements OnInit{
   }
   @Output() AddSetEvent: EventEmitter<SetItem>=new EventEmitter<SetItem>()
   shouldReload:boolean= true;
-  workout!: WorkoutItem
-  exercise!: ExerciseItem
+  workout!: WorkoutItem;
+  exercise!: ExerciseItem;
   sets: SetItem[]=[]
+
   ngOnInit():void {
     this.setItemService.GetAllSetFromDB().subscribe((s)=>{
       this.sets=s
     })
     this.exerciseItemService.GetLastAddedExerciseFromDB().subscribe((e)=>{
       this.exercise=e
+      this.exercise.id=e.id
+      console.log("ngOninit works")
+      console.log(this.exercise.id)
     })
     this.workoutItemService.GetLastAddedWorkoutFromDB().subscribe((w)=>{
       this.workout=w
+      this.workout.id=w.id
+      console.log("ngOninit works Workout id")
+      console.log(this.workout.id)
     })
     // if(this.shouldReload){
     //   setTimeout(() => {
@@ -46,7 +53,6 @@ export class SetFormComponent implements OnInit{
     // }
   }
   AddSet=()=>{
-    this.ngOnInit()
     let payload={...this.set}
     console.log("workout Id" +this.workout.id)
     console.log("exercise ID"+this.exercise.id)
@@ -57,6 +63,7 @@ export class SetFormComponent implements OnInit{
       this.AddSetEvent.emit(payload)
     })
     console.log(payload)
+    this.ngOnInit()
   }
   DeletSetEventHandler=(set:SetItem)=>{
     let setIndex = this.sets.findIndex(s => s.id === set.id);

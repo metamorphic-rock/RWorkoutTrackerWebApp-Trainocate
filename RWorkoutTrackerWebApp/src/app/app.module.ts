@@ -11,13 +11,18 @@ import { ExerciseFormComponent } from './Sections/Tracker/InputForm/ExerciseForm
 import { SetFormComponent } from './Sections/Tracker/InputForm/SetForm/set-form.component';
 import { OutputHeaderComponent } from './Sections/Tracker/OutputHeader/output-header.component';
 import { OutputBodyComponent } from './Sections/Tracker/OutputBody/output-body.component';
+import { HomeComponent } from './Sections/Home/home.component';
+import { WorkoutHistoryComponent } from './Sections/WorkoutHistory/workout-history.component';
+import { FooterComponent } from './Sections/Footer/footer.component';
+import { PreviousWorkoutsComponent } from './Sections/WorkoutHistory/PreviousWorkouts/previous-workouts.component';
 
 
 const appRoutes: Routes=[
+  {path:'home',component: HomeComponent},
   {path:'tracker',component:TrackerComponent},
   {path:'exerciseForm', component: ExerciseFormComponent},
-  
   {path:'setForm', component:SetFormComponent},
+  {path:'workoutHistory',component: WorkoutHistoryComponent},
   { path: '**', redirectTo: '/tracker'}
 ]
 @NgModule({
@@ -28,7 +33,11 @@ const appRoutes: Routes=[
     ExerciseFormComponent,
     SetFormComponent,
     OutputHeaderComponent,
-    OutputBodyComponent
+    OutputBodyComponent,
+    HomeComponent,
+    WorkoutHistoryComponent,
+    FooterComponent,
+    PreviousWorkoutsComponent
   ],
   imports: [
     BrowserModule,

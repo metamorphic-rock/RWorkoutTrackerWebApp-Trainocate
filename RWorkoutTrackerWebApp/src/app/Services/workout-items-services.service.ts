@@ -27,6 +27,7 @@ export class WorkoutItemsServicesService {
   GetLastAddedWorkoutFromDB = ():Observable<WorkoutItem> => {
     let workout: Observable<WorkoutItem>
     workout = this.http.get<WorkoutItem>(`${this.baseUrl}/workout_items/latest`, httpOptions)
+    console.log(workout)
     return workout
   }
   SaveWorkoutToDB = (workoutItem:WorkoutItem) => {
