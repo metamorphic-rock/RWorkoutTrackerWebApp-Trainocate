@@ -22,10 +22,11 @@ export class TrackerComponent implements OnInit{
     
   }
   SaveWorkout=()=>{
+    this.ngOnInit()
     let payload={...this.workout}
     this.workoutItemService.SaveWorkoutToDB(payload).subscribe()
     console.log(payload)
-    this.ngOnInit()
+    
   }
   // AddSetEventHandler =(payload:SetItem)=>{
   //   let set={...payload}

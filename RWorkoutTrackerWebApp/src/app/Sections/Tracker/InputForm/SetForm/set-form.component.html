@@ -1,17 +1,30 @@
 <div class="container">
     <div class="mt-2 mb-3"></div>
+    <button type="button" class="btn btn-danger" routerLink="/exerciseForm">
+        Add Other Exercise
+    </button>
+    <div class="mt-2 mb-3"></div>
     <div class="card">
         <div class="card-body">
             <label>Weight:</label>
-            <input type="number" class="form-control" [(ngModel)]="set.weight"/>
+            <input type="number" class="form-control" [(ngModel)]="set.weight" />
             <label>Reps:</label>
-            <input type="number" class="form-control" [(ngModel)]="set.reps"/>
+            <input type="number" class="form-control" [(ngModel)]="set.reps" />
         </div>
-        
+
     </div>
     <div class="mt-2 mb-3"></div>
     <button type="button" class="btn btn-success" (click)="AddSet()">
         Add Set
     </button>
+    <div class="mt-2 mb-3"></div>
+    <div class="card">
+        <div class="card-header">
+            <app-output-header></app-output-header>
+        </div>
+        <div class="card-body">
+            <app-output-body *ngFor="let set of sets" [set]="set"></app-output-body>
+        </div>
+    </div>
 
 </div>
