@@ -15,7 +15,7 @@ export class TrackerComponent implements OnInit {
   @Input() workout: WorkoutItem = {
     'id': 0,
     'workoutTitle': "",
-    'date': new Date,
+    'date': new Date(),
     'exercisesPerformed': []
   }
   @Input() set: SetItem | undefined; //fix this later
@@ -26,20 +26,22 @@ export class TrackerComponent implements OnInit {
   }
   SaveWorkout = () => {
     this.ngOnInit()
-    if (this.workout.workoutTitle == '' || this.workout.date == new Date) {
-      alert("Workout title and date is needed!")
+    if (this.workout.workoutTitle == '') {
+      alert("Workout title needed!")
       this.router.navigate(['/tracker'])
       return
-    } else {
+    }
+    if(this.workout.date ==null){
+      alert("Workout date needed!")
+      this.router.navigate(['/tracker'])
+      return
+    }
+    else {
       this.inputAreValid=true
       let payload = { ...this.workout }
       this.workoutItemService.SaveWorkoutToDB(payload).subscribe()
       console.log(payload)
+      this.router.navigate(['/exerciseForm'])
     }
   }
-  // AddSetEventHandler =(payload:SetItem)=>{
-  //   let set={...payload}
-  //   this.setItems.push(set)
-  //   this.ngOnInit()
-  // }
 }

@@ -54,7 +54,7 @@ export class SetFormComponent{
     
   }
   AddSet=()=>{
-    if(this.set.weight==0||this.set.reps==0){
+    if(this.set.weight<0||this.set.reps==0){
       alert("Weight and reps are required!")
       this.router.navigate(['/setForm'])
       return
@@ -79,5 +79,7 @@ export class SetFormComponent{
   }
   FinishWorkout=()=>{
     alert("Do you want to end this workout?")
+    this.router.navigate(['/trackerForm'])
+
   }
 }

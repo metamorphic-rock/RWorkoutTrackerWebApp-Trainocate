@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ExerciseItem } from '../Models/ExerciseItemModel';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable,catchError,throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 const httpOptions = {
@@ -14,7 +15,7 @@ const httpOptions = {
 })
 export class ExerciseItemServicesService {
   baseUrl: string = 'http://localhost:5211'
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   GetAllExerciseFromDB = () => {
     let exercise: Observable<ExerciseItem>
     exercise = this.http.get<ExerciseItem>(`${this.baseUrl}/exercise_items`, httpOptions)
@@ -41,7 +42,18 @@ export class ExerciseItemServicesService {
       } //fix this later
       console.log("SaveExerciseToDB exercise payload")
       console.log(payload)
-      exercise = this.http.post<ExerciseItem>(`${this.baseUrl}/exercise_items`, payload, httpOptions)
+      exercise = this.http.post<ExerciseItem>(`${this.baseUrl}/exercise_items`, payload, httpOptions).pipe((
+        catchError((error: HttpErrorResponse)=>{
+          if(error.status ===422){
+            console.error("invalid inputs", error.error)
+            this.router.navigate(['/exerciseForm'])
+            alert("invalid inputs")
+          }else {
+            console.error("unexpected error", error.error)
+          }
+          return throwError(error)
+        })
+      ))
     }
     return exercise
   }

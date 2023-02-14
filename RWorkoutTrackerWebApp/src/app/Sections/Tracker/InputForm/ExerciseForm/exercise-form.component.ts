@@ -60,6 +60,7 @@ export class ExerciseFormComponent {
     console.log(payload)
     console.log("workoutId" + payload.workoutId)
     this.ngOnInit()
+    this.router.navigate(['/setForm'])
 
   }
   FinishExercise = () => {
