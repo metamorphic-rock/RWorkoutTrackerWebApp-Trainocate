@@ -51,6 +51,10 @@ export class SetFormComponent{
       this.reloaded = true;
       this.router.navigate(['/setForm'])
     }
+    this.workoutItemService.GetWorkoutByIdFromDB(Number(this.exercise.workoutId)).subscribe(w=>{
+      this.workout=w
+      console.log(w.workoutTitle)
+    })
     
   }
   AddSet=()=>{

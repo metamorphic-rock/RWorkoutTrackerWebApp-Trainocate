@@ -41,6 +41,9 @@ export class ExerciseFormComponent {
       this.setItems = sets
 
     })
+    this.workoutItemService.GetWorkoutByIdFromDB(Number(this.exercise.workoutId)).subscribe((w)=>{
+      this.workout=w
+    })
     if (!this.reloaded) {
       this.reloaded = true;
       this.router.navigate(['/exerciseForm']);
